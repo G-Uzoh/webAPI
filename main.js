@@ -1,7 +1,6 @@
 const info = document.querySelector('.cards');
 const search = document.querySelector('#search');
 
-let searchCharacters = [];
 let pokeData = [];
 
 const fetchData = async () => {
@@ -31,9 +30,9 @@ const fetchData = async () => {
     pokeCards();
 }
 
-const pokeCards = (searchString) => {
+const pokeCards = () => {
 
-    const cards = pokeData?.filter(searchString)?.map(pokemon => {
+    const cards = pokeData?.map(pokemon => {
         return `
         <div class="card">
             <div class="id">
@@ -53,12 +52,8 @@ const pokeCards = (searchString) => {
         </div>
             `
     }).join('');
-    
-        
 
-        info.innerHTML = cards;
-
-
+    info.innerHTML = cards;
 
     /*
     <div class="card">
@@ -90,15 +85,40 @@ const getAbility = (ability) => {
 }
 
 search.addEventListener('keyup', e => {
+
+    
     const searchString = e.target.value.toLowerCase();
 
-    pokeCards(searchString);
+    const filteredCharacters = pokeData?.filter(pokemon => {
+        return pokemon.name.toLowerCase()?.includes(searchString);
+    });
+    displayPokemon(filteredCharacters);
 });
 
-const displayCharacters = (characters) => {
-    const wordString = characters.map((character) => {
-        return
-    })
-}
+const displayPokemon = (pokemon) => {
+    const searchCriteria = pokemon
+        ?.map((pokemon) => {
+            return `
+            <div class="card">
+            <div class="id">
+            <p>${pokemon.id}</p>
+            </div>
+            <div class="top-section">
+            <img
+                src="${pokemon.img}"
+                alt="${pokemon.name}"
+            />
+            </div>
+            <div class="bottom-section">
+            <h2 class="title">${pokemon.name}</h2>
+            <p class="title">${pokemon.types.map(type => getType(type)).join(', ')}</p>
+            <p>${pokemon.abilities.map(ability => getAbility(ability)).join(', ')}</p>
+            </div>
+        </div>
+        `;
+        })
+        .join('');
+    info.innerHTML = searchCriteria;
+};
 
 fetchData();
