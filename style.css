@@ -15,9 +15,10 @@ body {
     background-image: url('https://cdn.pixabay.com/photo/2023/06/18/12/17/meadow-8071932_1280.jpg');
     background-attachment: fixed;
     background-size: cover;
+    color: #333;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     min-height: 100vh;
 }
@@ -36,10 +37,37 @@ input {
     width: 15rem;
 }
 
+.generation-wrap {
+    display: flex;
+}
+
+.gen {
+    background: white;
+    width: 80px;
+    height: 45px;
+    margin: 1rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid black;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.hint {
+    margin: 5rem auto;
+    font-size: 1.8rem;
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
+}
+
+.cards.hide,
+.hint.hide {
+    display: none;
 }
 
 .card {

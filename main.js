@@ -1,14 +1,19 @@
-const info = document.querySelector('.cards');
+const generations = document.querySelectorAll('.gen');
 const search = document.querySelector('#search');
+const hint = document.querySelector('.hint');
+console.log(hint)
+const info = document.querySelector('.cards');
+
+info.classList.add('hide');
 
 let pokeData = [];
 
-const fetchData = async () => {
+const fetchData = async (limit, offset) => {
     await
-        fetch('https://pokeapi.co/api/v2/pokemon?limit=121&offset=0')
+        fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
             .then(res => res.json())
             .then(data => {
-                const fetches = data.results.map(item => {
+                const fetches = data.results?.map(item => {
                     return fetch(item.url)
                         .then(res => res.json())
                         .then(data => {
@@ -17,7 +22,8 @@ const fetchData = async () => {
                                 name: data.name,
                                 img: data.sprites.other['official-artwork'].front_default,
                                 types: data.types,
-                                abilities: data.abilities
+                                height: data.height,
+                                weight: data.weight,
                             }
                         })
                     })
@@ -46,54 +52,20 @@ const pokeCards = () => {
             </div>
             <div class="bottom-section">
             <h2 class="title">${pokemon.name}</h2>
-            <p class="title">${pokemon.types.map(type => getType(type)).join(', ')}</p>
-            <p>${pokemon.abilities.map(ability => getAbility(ability)).join(', ')}</p>
+            <p class="title">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
+            <p>${pokemon.height}</p>
+            <p>${pokemon.weight}</p>
             </div>
         </div>
             `
     }).join('');
 
     info.innerHTML = cards;
-
-    /*
-    <div class="card">
-            <div class="id">
-            <p>#1</p>
-            </div>
-            <div class="top-section">
-            <img
-                src="https://archives.bulbagarden.net/media/upload/3/3a/0039Jigglypuff.png"
-                alt="pokemon"
-            />
-            </div>
-            <div class="bottom-section">
-            <p><span class="title">Name:</span> Jigglypuff</p>
-            <p><span class="title">Type:</span> Normal, fairy</p>
-            <p><span class="title">Ability:</span> Cute charm, competitive</p>
-            </div>
-    </div>
-    */
-
 }
 
 const getType = (type) => {
     return `${type.type.name}`;
 }
-
-const getAbility = (ability) => {
-    return `${ability.ability.name}`;
-}
-
-search.addEventListener('keyup', e => {
-
-    
-    const searchString = e.target.value.toLowerCase();
-
-    const filteredCharacters = pokeData?.filter(pokemon => {
-        return pokemon.name.toLowerCase()?.includes(searchString);
-    });
-    displayPokemon(filteredCharacters);
-});
 
 const displayPokemon = (pokemon) => {
     const searchCriteria = pokemon
@@ -111,14 +83,66 @@ const displayPokemon = (pokemon) => {
             </div>
             <div class="bottom-section">
             <h2 class="title">${pokemon.name}</h2>
-            <p class="title">${pokemon.types.map(type => getType(type)).join(', ')}</p>
-            <p>${pokemon.abilities.map(ability => getAbility(ability)).join(', ')}</p>
+            <p class="title">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
+            <p>${pokemon.height}</p>
+            <p>${pokemon.weight}</p>
             </div>
         </div>
         `;
         })
         .join('');
     info.innerHTML = searchCriteria;
-};
+}
+
+search.addEventListener('keyup', e => {
+
+    
+    const searchString = e.target.value.toLowerCase();
+
+    const filteredCharacters = pokeData?.filter(pokemon => {
+        return pokemon.name.toLowerCase()?.includes(searchString) ||
+            pokemon.types?.map(type => getType(type)).join(', ')?.includes(searchString);
+    });
+    displayPokemon(filteredCharacters);
+});
+
+generations.forEach(generation => {
+    generation.addEventListener('click', function getGeneration() {
+        let genId = parseInt(generation.id);
+        
+        if (genId === 1) {
+            limit = 151;
+            offset = 0;
+        } else if (genId === 2) {
+            limit = 100;
+            offset = 151;
+        } else if (genId === 3) {
+            limit = 135;
+            offset = 252;
+        } else if (genId === 4) {
+            limit = 107;
+            offset = 387;
+        } else if (genId === 5) {
+            limit = 156;
+            offset = 494;
+        } else if (genId === 6) {
+            limit = 72;
+            offset = 650;
+        } else if (genId === 7) {
+            limit = 88;
+            offset = 722;
+        } else if (genId === 8) {
+            limit = 96;
+            offset = 810;
+        } else if (genId === 9) {
+            limit = 112;
+            offset = 906;
+        }
+        fetchData(limit, offset)
+        console.log(genId, limit, offset)
+        info.classList.remove('hide');
+        hint.classList.add('hide');
+    });
+});
 
 fetchData();
