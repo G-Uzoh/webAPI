@@ -5,12 +5,29 @@ const hint = document.querySelector('.text');
 const numberOfSpecies = document.querySelector('.number');
 const form = document.querySelector('form');
 const info = document.querySelector('.cards');
+const toTopBtn = document.querySelector('.back-to-top');
 
 form.classList.add('hide');
 numberOfSpecies.classList.add('hide');
 info.classList.add('hide');
 
 let pokeData = [];
+
+// Add scroll event to window
+window.onscroll = function() {scrollFn()};
+ 
+// Define the scroll function
+const scrollFn = () => {
+    // Add responsiveness for different browsers
+    document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000 ? toTopBtn.style.display = 'block' : toTopBtn.style.display = 'none';
+}
+
+const backToTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+toTopBtn.addEventListener('click', backToTop);
 
 // Asynchronous function to get pokemon data
 const fetchData = async (limit, offset, genId) => {

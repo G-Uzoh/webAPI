@@ -10,11 +10,16 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/afc8729712.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Poke app</title>
   </head>
   <body>
     <h1>Pokedex</h1>
 
+    <!-- Pokemon generation -->
     <div class="generation-wrap">
       <div class="gen g1" id="1">Gen I</div>
       <div class="gen g2" id="2">Gen II</div>
@@ -30,6 +35,7 @@
     <h3 class="text">Select pokemon generation to display species</h3>
     <h3 class="number"></h3>
 
+    <!-- Search bar -->
     <form>
       <input
         type="search"
@@ -39,7 +45,13 @@
       />
     </form>
 
+    <!-- Pokemon data display cards -->
     <div class="cards"></div>
+
+    <!-- Scroll to top button -->
+    <button class="back-to-top">
+      <i class="fa-solid fa-chevron-up to-top-icon"></i>
+    </button>
 
     <script src="main.js"></script>
   </body>
