@@ -14,9 +14,7 @@
   </head>
   <body>
     <h1>Pokedex</h1>
-    <form>
-      <input type="search" name="search" id="search" placeholder="Search" />
-    </form>
+
     <div class="generation-wrap">
       <div class="gen g1" id="1">Gen I</div>
       <div class="gen g2" id="2">Gen II</div>
@@ -29,8 +27,20 @@
       <div class="gen g9" id="9">Gen IX</div>
     </div>
 
-    <h3 class="hint">Select pokemon generation to display species</h3>
+    <h3 class="text">Select pokemon generation to display species</h3>
+    <h3 class="number"></h3>
+
+    <form>
+      <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Search Pokemon by name or type"
+      />
+    </form>
+
     <div class="cards"></div>
+
     <script src="main.js"></script>
   </body>
 </html>
