@@ -23,18 +23,8 @@ body {
     min-height: 100vh;
 }
 
-h1,
-input {
+h1 {
     margin: 1rem;
-}
-
-input {
-    font-family: inherit;
-    font-size: inherit;
-    border: 0.5px solid black;
-    border-radius: 4px;
-    padding: 0.5rem;
-    width: 20rem;
 }
 
 .generation-wrap {
@@ -61,6 +51,33 @@ input {
 
 .text,
 .number {
+    font-size: 1.5rem;
+}
+
+.search-bar {
+    width: 20rem;
+    height: 45px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.search-bar > input {
+    font-family: inherit;
+    font-size: inherit;
+    border: 0.5px solid black;
+    padding: 0.5rem;
+    height: 40px;
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+.search-bar > span {
     font-size: 1.5rem;
 }
 
@@ -120,22 +137,21 @@ form.hide {
 .bottom-section {
     background: #333;
     color: #fff;
-    padding: 10px;
     border-radius: 0 0 5px 5px;
 }
 
 .name {
     font-weight: bold;
-    font-size: 1.8rem;
-    text-transform: capitalize;
+    font-size: 1.5rem;
+    text-transform: uppercase;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    padding: 5px 0;
 }
 
 .type {
     text-align: center;
     margin-bottom: 8px;
-    font-size: 1.2rem;
     text-transform: capitalize;
 }
 
@@ -143,16 +159,19 @@ form.hide {
     display: flex;
     justify-content: space-between;
     text-align: center;
+    background: black;
+    padding: 7px;
 }
 
 .back-to-top {
     display: none;
     position: fixed;
     bottom: 1rem;
+    right: 1rem;
     font-size: 3rem;
     width: 60px;
     height: 60px;
     border: 1px solid black;
     border-radius: 50%;
-    background: chocolate;
+    background: white;
 }

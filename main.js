@@ -11,6 +11,7 @@ form.classList.add('hide');
 numberOfSpecies.classList.add('hide');
 info.classList.add('hide');
 
+// Global variable
 let pokeData = [];
 
 // Add scroll event to window
@@ -19,7 +20,9 @@ window.onscroll = function() {scrollFn()};
 // Define the scroll function
 const scrollFn = () => {
     // Add responsiveness for different browsers
-    document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000 ? toTopBtn.style.display = 'block' : toTopBtn.style.display = 'none';
+    document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000 
+    ? toTopBtn.style.display = 'block' 
+    : toTopBtn.style.display = 'none';
 }
 
 const backToTop = () => {
@@ -68,21 +71,21 @@ const pokeCards = () => {
         return `
         <div class="card">
             <div class="id">
-            <p>${pokemon.id}</p>
+                <p>${pokemon.id}</p>
             </div>
             <div class="top-section">
-            <img
-                src="${pokemon.img}"
-                alt="${pokemon.name}"
-            />
+                <img
+                    src="${pokemon.img}"
+                    alt="${pokemon.name}"
+                />
             </div>
             <div class="bottom-section">
-            <h2 class="name">${pokemon.name}</h2>
-            <p class="type">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
-            <div class="mass">
-                <p>${pokemon.height * 10}cm</p>
-                <p>${pokemon.weight / 10}kg</p>
-            </div>
+                <h2 class="name">${pokemon.name}</h2>
+                <p class="type">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
+                <div class="mass">
+                    <p>${pokemon.height * 10}cm</p>
+                    <p>${pokemon.weight / 10}kg</p>
+                </div>
             </div>
         </div>
             `
@@ -99,25 +102,27 @@ const getType = (type) => {
 // Populate cards with Pokemon data based on search criteria
 const displayPokemon = (pokemon) => {
     const searchCriteria = pokemon
-        ?.map((pokemon) => {
+        ?.map(pokemon => {
             return `
             <div class="card">
-            <div class="id">
-            <p>${pokemon.id}</p>
+                <div class="id">
+                    <p>${pokemon.id}</p>
+                </div>
+                <div class="top-section">
+                    <img
+                        src="${pokemon.img}"
+                        alt="${pokemon.name}"
+                    />
+                </div>
+                <div class="bottom-section">
+                    <h2 class="title">${pokemon.name}</h2>
+                    <p class="title">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
+                    <div class="mass">
+                        <p>${pokemon.height * 10}cm</p>
+                        <p>${pokemon.weight / 10}kg</p>
+                    </div>
+                </div>
             </div>
-            <div class="top-section">
-            <img
-                src="${pokemon.img}"
-                alt="${pokemon.name}"
-            />
-            </div>
-            <div class="bottom-section">
-            <h2 class="title">${pokemon.name}</h2>
-            <p class="title">${pokemon.types?.map(type => getType(type)).join(', ')}</p>
-            <p>${pokemon.height}</p>
-            <p>${pokemon.weight}</p>
-            </div>
-        </div>
         `;
         })
         .join('');
@@ -132,7 +137,7 @@ search.addEventListener('keyup', e => {
 
     const filteredCharacters = pokeData?.filter(pokemon => {
         return pokemon.name.toLowerCase()?.includes(searchString) ||
-            pokemon.types?.map(type => getType(type)).join(', ')?.includes(searchString);
+            pokemon.types?.map(type => getType(type)).join(', ').toLowerCase()?.includes(searchString);
     });
     displayPokemon(filteredCharacters);
 });
@@ -140,6 +145,7 @@ search.addEventListener('keyup', e => {
 // Populate cards based on selected Pokemon generation
 generations.forEach(generation => {
     generation.addEventListener('click', function getPokemonByGeneration() {
+        
         let genId = +generation.id;
         
         if (genId === 1) {
